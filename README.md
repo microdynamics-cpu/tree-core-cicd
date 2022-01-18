@@ -33,6 +33,6 @@
 All of the TreeCore CICD codes are release under the [GPL-3.0 License](LICENSE).
 
 ## Acknowledgement
-1. [icesugar](https://github.com/wuxx/icesugar)
+1. [xxxxx](https://github.com/xxxx)
 
 ## Reference
