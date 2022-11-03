@@ -1,7 +1,7 @@
 #!/bin/python
 
 import os
-import config
+import cicd_config
 
 rpt_home = ''
 dut_core = ''
@@ -268,9 +268,9 @@ def create_rpt_dir():
         dut_core = rec[0].split('/')[1]
 
         # record queue state
-        os.system('mkdir -p ' + config.RPT_DIR + dut_core)
-        os.system('echo state: under test > ' + config.RPT_DIR + dut_core +
-                  '/state')
+        os.system('mkdir -p ' + cicd_config.RPT_DIR + dut_core)
+        os.system('echo state: under test > ' + cicd_config.RPT_DIR +
+                  dut_core + '/state')
 
         # remove record from queue
         fp.seek(0)
@@ -284,17 +284,19 @@ def create_rpt_dir():
         cores = fp.readlines()
         cnt = 1
         for v in cores:
-            v_path = config.RPT_DIR + v.split()[0].split('/')[1]
+            v_path = cicd_config.RPT_DIR + v.split()[0].split('/')[1]
             os.system('mkdir -p ' + v_path)
             os.system('echo state: wait ' + str(cnt) + ' cores > ' + v_path +
                       '/state')
             cnt += 1
 
-        config.git_commit(config.RPT_DIR, '[bot] update soc state file', True)
+        cicd_config.git_commit(cicd_config.RPT_DIR,
+                               '[bot] update soc state file', True)
 
         # soc integration
         global rpt_home
-        rpt_home = config.RPT_DIR + dut_core + '/' + rec[1] + '...' + rec[2]
+        rpt_home = cicd_config.RPT_DIR + dut_core + '/' + rec[1] + '...' + rec[
+            2]
         os.system('mkdir -p ' + rpt_home)
         soc_intg(rec)
     else:
@@ -305,7 +307,7 @@ def create_rpt_dir():
 
 
 def soc_intg(rec):
-    core_path = config.SUBMIT_DIR + rec[0] + '/' + rec[0].split('/')[1]
+    core_path = cicd_config.SUBMIT_DIR + rec[0] + '/' + rec[0].split('/')[1]
     v_format = core_path + '.v'
     sv_format = core_path + '.sv'
     if os.path.isfile(v_format):
@@ -316,7 +318,7 @@ def soc_intg(rec):
     else:
         print('no core file!')
 
-    # print('cp ' + config.SUBMIT_DIR  + rec[0] + '/' + rec[0] + '.v')
+    # print('cp ' + cicd_config.SUBMIT_DIR  + rec[0] + '/' + rec[0] + '.v')
     os.chdir('./vcs/script')
     os.system('python autowire.py')
     os.chdir('../../')
@@ -329,10 +331,10 @@ def clean_vcs_env():
 
 
 def clean_dc_env():
-    os.chdir(config.HOME_DIR + 'dc/bes_data/syn/')
+    os.chdir(cicd_config.HOME_DIR + 'dc/bes_data/syn/')
     # os.system('rm -rf log/*.log')
     # os.system('rm -rf out/*.txt')
-    os.chdir(config.HOME_DIR)
+    os.chdir(cicd_config.HOME_DIR)
 
 
 def run_vcs():
@@ -349,7 +351,7 @@ def run_main():
         is_vcs_right = run_vcs()
         if (is_vcs_right):
             run_dc()
-        config.git_commit(config.RPT_DIR, '[bot] new report!', True)
+        cicd_config.git_commit(cicd_config.RPT_DIR, '[bot] new report!', True)
 
 
 def run_dc():
@@ -358,13 +360,13 @@ def run_dc():
     os.system('cp ./vcs/cpu/' + dut_core + '.v ./vcs/cpu_dc/')
     os.chdir('./vcs/script')
     os.system('./autowire_new.py')
-    os.chdir(config.HOME_DIR)
+    os.chdir(cicd_config.HOME_DIR)
     os.chdir('./dc/bes_data/syn/scr/')
     os.system('./syn_scr_update')
     os.system('cp ../out/dc_report ' + rpt_home)
     clean_dc_env()
     clean_vcs_env()  # can not move into run_vcs!
-    os.chdir(config.HOME_DIR)
+    os.chdir(cicd_config.HOME_DIR)
 
 
 def main():

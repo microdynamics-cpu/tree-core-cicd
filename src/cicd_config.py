@@ -9,7 +9,8 @@ STD_FOMRAT = '%Y-%m-%d %H:%M:%S'
 HOME_DIR = os.getcwd() + '/'
 SOC_LIST_DIR = HOME_DIR + '../data/soc_list'
 
-SUBMIT_DIR = HOME_DIR + '../ysyx_submit/'
+# need to modify the SUBMIT_DIR path for the CICD repo
+SUBMIT_DIR = '.'
 SUB_DIR = SUBMIT_DIR + 'submit/'
 RPT_DIR = SUBMIT_DIR + 'report/'
 
