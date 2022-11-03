@@ -1,7 +1,7 @@
 #!/bin/python
 
-import schedule
 import time
+import schedule
 import add_soc
 import repo_update
 import soc_test

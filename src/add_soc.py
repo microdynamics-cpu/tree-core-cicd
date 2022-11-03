@@ -1,20 +1,17 @@
 #!/bin/python
 
 import os
-import config
+import cicd_config
 
 
-# (url, ysyx_040xxx)
 def main():
     print('add soc')
-    fp = open('data/soc_list', 'r+')
-    cores = fp.readlines()
-    os.chdir(config.SUBMIT_DIR)
-    for v in cores:
-        tmp = v.split()
-        # print('git submoudle add ' + tmp[0] + ' submit/' + tmp[1])
-        os.system('git submodule add ' + tmp[0] + ' submit/' + tmp[1])
-    fp.close()
+    with open(cicd_config.SOC_LIST_DIR, 'r+') as fp:
+        cores = fp.readlines()
+        os.chdir(cicd_config.SUBMIT_DIR)
+        for v in cores:
+            tmp = v.split()
+            os.system('git submodule add ' + tmp[0] + ' submit/' + tmp[1])
 
 
 if __name__ == '__main__':

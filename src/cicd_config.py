@@ -2,9 +2,13 @@
 import os
 
 BRANCH_NAME_DEV = 'master'
+
 GMT_FORMAT = '%a %b %d %H:%M:%S %Y %z'
 STD_FOMRAT = '%Y-%m-%d %H:%M:%S'
+
 HOME_DIR = os.getcwd() + '/'
+SOC_LIST_DIR = HOME_DIR + '../data/soc_list'
+
 SUBMIT_DIR = HOME_DIR + '../ysyx_submit/'
 SUB_DIR = SUBMIT_DIR + 'submit/'
 RPT_DIR = SUBMIT_DIR + 'report/'
