@@ -6,7 +6,7 @@ import cicd_config
 
 # core format: (url, id)
 def main():
-    print('[ysyx_submit] Add SoC')
+    print('[ysyx_cicd] Add SoC')
     with open(cicd_config.SOC_LIST_PATH, 'r+', encoding='utf-8') as fp:
         cores = fp.readlines()
         os.chdir(cicd_config.SUBMIT_DIR)

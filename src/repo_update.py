@@ -1,6 +1,4 @@
 #!/bin/python
-
-from asyncio import QueueEmpty
 import os
 from datetime import datetime
 import cicd_config
@@ -104,7 +102,7 @@ def check_sub(core_name):
 
 def main():
     os.system('mkdir -p ' + cicd_config.DATA_DIR)
-    print('[ysyx_submit] Auto Git Submodule Update... \n')
+    print('[ysyx_cicd] Auto Git Submodule Update... \n')
 
     global core_list
     core_list.clear()
