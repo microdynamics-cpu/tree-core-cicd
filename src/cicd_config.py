@@ -7,7 +7,10 @@ GMT_FORMAT = '%a %b %d %H:%M:%S %Y %z'
 STD_FOMRAT = '%Y-%m-%d %H:%M:%S'
 
 HOME_DIR = os.getcwd() + '/'
-SOC_LIST_DIR = HOME_DIR + '../data/soc_list'
+DATA_DIR = HOME_DIR + '../data'
+SOC_LIST_PATH = DATA_DIR + '/soc_list'
+CORE_LIST_PATH = DATA_DIR + '/core_list'
+QUEUE_LIST_PATH = DATA_DIR + '/queue_list'
 
 # need to modify the SUBMIT_DIR path for the CICD repo
 SUBMIT_DIR = '.'
