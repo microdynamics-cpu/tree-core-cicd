@@ -12,6 +12,9 @@ SOC_LIST_PATH = DATA_DIR + '/soc_list'
 CORE_LIST_PATH = DATA_DIR + '/core_list'
 QUEUE_LIST_PATH = DATA_DIR + '/queue_list'
 
+DC_HOME_DIR = HOME_DIR + '../lib/dc/bes_data/syn/scr'
+DC_LOG_DIR = DC_HOME_DIR + '../log'
+DC_RPT_DIR = DC_HOME_DIR + '../rpt'
 # need to modify the SUBMIT_DIR path for the CICD repo
 SUBMIT_DIR = '.'
 SUB_DIR = SUBMIT_DIR + 'submit/'
