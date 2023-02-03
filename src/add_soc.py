@@ -4,8 +4,8 @@ import os
 import re
 import cicd_config
 
-# ysyx4: (url, ysyx_040xxx)
-# >=ysyx5: (url, ysyx_22050xxx)
+# ysyx4: (url, ysyx_04xxxx)
+# >=ysyx5: (url, ysyx_xxxxxxxx)
 # pattern: ysyx_([0-9]{6})
 # cores: [(bran, url, id)]
 cores = []
