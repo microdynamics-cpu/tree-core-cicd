@@ -62,6 +62,5 @@ def main():
         print('git submodule add ' + v.url + ' submit/' + v.sid)
         # os.system('git submodule add ' + v.url + ' submit/' + v.sid)
 
-
 if __name__ == '__main__':
     main()
