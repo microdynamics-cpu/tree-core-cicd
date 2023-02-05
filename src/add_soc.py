@@ -37,7 +37,6 @@ def fillData(id_list, term, is_long):
                 CoreInfo(bran, term[0],
                          term[1][:5] + id_prfx[int(bran)] + term[1][5:]))
 
-
 def main():
     print('[add soc]')
     with open('../data/soc_list', 'r+', encoding='utf-8') as fp:
