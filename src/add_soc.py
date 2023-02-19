@@ -37,6 +37,7 @@ def fillData(id_list, term, is_long):
                 CoreInfo(bran, term[0],
                          term[1][:5] + id_prfx[int(bran)] + term[1][5:]))
 
+
 def main():
     print('[add soc]')
     with open('../data/soc_list', 'r+', encoding='utf-8') as fp:
@@ -57,9 +58,11 @@ def main():
     os.chdir(cicd_config.SUBMIT_DIR)
     for v in cores:
         print('git checkout ysyx' + v.bran)
+
         # os.system('git checkout ysyx' + v.bran)
         print('git submodule add ' + v.url + ' submit/' + v.sid)
         # os.system('git submodule add ' + v.url + ' submit/' + v.sid)
+
 
 if __name__ == '__main__':
     main()
