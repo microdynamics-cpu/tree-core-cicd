@@ -27,8 +27,6 @@
 ## Feature
 ## Usage
 
-
-
 ## License
 All of the TreeCore CICD codes are release under the [GPL-3.0 License](LICENSE).
 
