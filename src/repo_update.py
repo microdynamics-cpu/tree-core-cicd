@@ -1,23 +1,23 @@
 #!/bin/python
 import os
 from datetime import datetime
+from typing import Tuple
 import cicd_config
 
 queue = []
 core_list = []
 
 
-def exec_cmd(cmd):
+def exec_cmd(cmd: str) -> str:
     try:
         ret = os.popen(cmd).read()
     except Exception as e:
         print("Error '{0}' occured when exec_cmd".format(e))
-        ret = None
-
+        ret = ''
     return ret
 
 
-def sw_branch(branch_name):
+def sw_branch(branch_name: str):
     cmd = 'git symbolic-ref --short HEAD'
     # check if already in this branch
     cur_branch = exec_cmd(cmd)
@@ -33,7 +33,7 @@ def sw_branch(branch_name):
 
 # return: (state: Bool, submod_name: str, std_date: str)
 # state: if submod repo has new commit
-def check_remote_update(submod_name):
+def check_remote_update(submod_name: str) -> (Tuple[bool, str, str]):
     os.chdir(cicd_config.SUBMIT_DIR + submod_name)
     cmd = 'git rev-parse HEAD'
     local_rev = exec_cmd(cmd)
@@ -69,7 +69,7 @@ def check_remote_update(submod_name):
         return (True, submod_name, std_date)
 
 
-def pull_sub(submod_name):
+def pull_sub(submod_name: str):
     os.chdir(cicd_config.SUBMIT_DIR + submod_name)
     sw_branch(cicd_config.BRANCH_NAME_DEV)
 
@@ -80,7 +80,7 @@ def pull_sub(submod_name):
     os.chdir(cicd_config.HOME_DIR)
 
 
-def check_sub(core_name):
+def check_sub(core_name: str):
     submod_name = 'submit/' + core_name
     ret = check_remote_update(submod_name)
     # restart is also right

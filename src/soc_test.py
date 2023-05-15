@@ -1,6 +1,7 @@
 #!/bin/python
 
 import os
+from typing import List
 import cicd_config
 
 rpt_home = ''
@@ -129,7 +130,7 @@ def system_test():
     return err_cnt == 0
 
 
-def create_rpt_dir():
+def create_rpt_dir() -> bool:
     is_have = False
     with open(cicd_config.QUEUE_LIST_PATH, 'r+', encoding='utf-8') as fp:
         cores = fp.readlines()
@@ -178,7 +179,7 @@ def create_rpt_dir():
 
 
 # rec's format: ['submit/ysyx_210153', '2022-08-18' '09:05:40']
-def soc_intg(rec):
+def soc_intg(rec: List[str]):
     core_path = cicd_config.SUBMIT_DIR + rec[0] + '/' + rec[0].split('/')[1]
     v_format = core_path + '.v'
     sv_format = core_path + '.sv'
