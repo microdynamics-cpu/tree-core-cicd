@@ -6,8 +6,10 @@ BRANCH_NAME_DEV = 'master'
 GMT_FORMAT = '%a %b %d %H:%M:%S %Y %z'
 STD_FOMRAT = '%Y-%m-%d %H:%M:%S'
 
+CUR_BRAN = '202302'
+CUR_ID = '23'
 HOME_DIR = os.getcwd() + '/'
-DATA_DIR = HOME_DIR + '../data'
+DATA_DIR = HOME_DIR + '../data/' + CUR_BRAN
 SOC_LIST_PATH = DATA_DIR + '/soc_list'
 CORE_LIST_PATH = DATA_DIR + '/core_list'
 QUEUE_LIST_PATH = DATA_DIR + '/queue_list'
