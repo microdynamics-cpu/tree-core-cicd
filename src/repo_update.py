@@ -8,26 +8,17 @@ queue = []
 core_list = []
 
 
-def exec_cmd(cmd: str) -> str:
-    try:
-        ret = os.popen(cmd).read()
-    except Exception as e:
-        print(f"Error '{0}' occured when exec_cmd".format(e))
-        ret = ''
-    return ret
-
-
-def sw_branch(branch_name: str):
+def sw_branch(bran_name: str):
     cmd = 'git symbolic-ref --short HEAD'
     # check if already in this branch
-    cur_branch = exec_cmd(cmd)
-    if cur_branch == (branch_name + "\n"):
+    cur_branch = cicd_config.exec_cmd(cmd)
+    if cur_branch == (bran_name + "\n"):
         return
     else:
         # switch to branch
-        print("switch to branch: " + branch_name)
-        cmd = 'git checkout ' + branch_name
-        ret = exec_cmd(cmd)
+        print("switch to branch: " + bran_name)
+        cmd = 'git checkout ' + bran_name
+        ret = cicd_config.exec_cmd(cmd)
         print(ret)
 
 
@@ -36,22 +27,22 @@ def sw_branch(branch_name: str):
 def check_remote_update(submod_name: str) -> (Tuple[bool, str, str]):
     os.chdir(cicd_config.SUBMIT_DIR + submod_name)
     cmd = 'git rev-parse HEAD'
-    local_rev = exec_cmd(cmd)
+    local_rev = cicd_config.exec_cmd(cmd)
 
     sw_branch(cicd_config.BRANCH_NAME_DEV)
     cmd = 'git remote -v update'
-    exec_cmd(cmd)
+    cicd_config.exec_cmd(cmd)
 
     cmd = 'git rev-parse origin/HEAD'
-    remote_rev = exec_cmd(cmd)
+    remote_rev = cicd_config.exec_cmd(cmd)
 
     cmd = 'git log origin/' + cicd_config.BRANCH_NAME_DEV
     cmd += ' --pretty=format:"%s" -1'
-    title_rev = exec_cmd(cmd)
+    title_rev = cicd_config.exec_cmd(cmd)
 
     cmd = 'git log origin/' + cicd_config.BRANCH_NAME_DEV
     cmd += ' --pretty=format:"%ad" -1'
-    date_rev = exec_cmd(cmd)
+    date_rev = cicd_config.exec_cmd(cmd)
     print(date_rev)
 
     std_date = datetime.strptime(date_rev, cicd_config.GMT_FORMAT).strftime(
@@ -75,12 +66,12 @@ def pull_sub(submod_name: str):
 
     cmd = 'git pull --progress -v --no-rebase "origin" '
     cmd += cicd_config.BRANCH_NAME_DEV
-    ret = exec_cmd(cmd)
+    ret = cicd_config.exec_cmd(cmd)
     print(ret)
     os.chdir(cicd_config.HOME_DIR)
 
 
-def checkRepo(core_name: str):
+def check_repo(core_name: str):
     submod_name = 'submit/' + core_name
     ret = check_remote_update(submod_name)
     # restart is also right
@@ -120,7 +111,7 @@ def main():
     queue.clear()
 
     for v in cores:
-        checkRepo(v)
+        check_repo(v)
 
     os.chdir(cicd_config.HOME_DIR)
     with open(cicd_config.CORE_LIST_PATH, 'w+', encoding='utf-8') as fp:

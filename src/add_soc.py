@@ -4,16 +4,10 @@ import os
 import re
 from typing import List
 import cicd_config
+from data_type import CoreInfo
 
 # cores: [(bran, url, id)]
 cores = []
-
-
-class CoreInfo(object):
-    def __init__(self, bran: str, url: str, sid: str):
-        self.bran = bran
-        self.url = url
-        self.sid = sid
 
 
 # 1. pattern: ysyx_([0-9]{6})
