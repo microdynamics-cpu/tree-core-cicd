@@ -29,6 +29,11 @@ def fillData(term: List[str]):
     cores.append(CoreInfo(cicd_config.CUR_BRAN, term[0], term[1]))
 
 
+def handleIDErr(val: str):
+    # need to write to the submit info
+    print('ID: error format, the err val: ' + val)
+
+
 def main():
     print('[add soc]')
     with open(cicd_config.SOC_LIST_PATH, 'r+', encoding='utf-8') as fp:
@@ -38,7 +43,7 @@ def main():
             if checkValid(tmp[1]) != '':
                 fillData(tmp)
             else:
-                print('ID: error format!')
+                handleIDErr(tmp)
 
     os.chdir(cicd_config.SUBMIT_DIR)
     for v in cores:

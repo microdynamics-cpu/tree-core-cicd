@@ -12,7 +12,7 @@ def exec_cmd(cmd: str) -> str:
     try:
         ret = os.popen(cmd).read()
     except Exception as e:
-        print("Error '{0}' occured when exec_cmd".format(e))
+        print(f"Error '{0}' occured when exec_cmd".format(e))
         ret = ''
     return ret
 
@@ -80,7 +80,7 @@ def pull_sub(submod_name: str):
     os.chdir(cicd_config.HOME_DIR)
 
 
-def check_sub(core_name: str):
+def checkRepo(core_name: str):
     submod_name = 'submit/' + core_name
     ret = check_remote_update(submod_name)
     # restart is also right
@@ -102,12 +102,13 @@ def check_sub(core_name: str):
 
 def main():
     os.system('mkdir -p ' + cicd_config.DATA_DIR)
-    print('[ysyx_cicd] Auto Git Submodule Update... \n')
+    print('[repo update]')
 
     global core_list
     core_list.clear()
 
     os.chdir(cicd_config.HOME_DIR)
+    # check if cores have been added to the cicd database
     with open(cicd_config.CORE_LIST_PATH, 'r+', encoding='utf-8') as fp:
         for line in fp:
             core_list.append(line.rstrip('\n'))
@@ -119,7 +120,7 @@ def main():
     queue.clear()
 
     for v in cores:
-        check_sub(v)
+        checkRepo(v)
 
     os.chdir(cicd_config.HOME_DIR)
     with open(cicd_config.CORE_LIST_PATH, 'w+', encoding='utf-8') as fp:
@@ -127,9 +128,9 @@ def main():
             fp.write(v + '\n')
 
     # cicd_config.git_commit(cicd_config.SUB_DIR, '[bot] update submodule')
-    # queue = [('submit/ysyx_210153', '2022-08-18 09:05:40'),
-    #          ('submit/ysyx_210340', '2022-08-18 09:00:38'),
-    #          ('submit/ysyx_210171', '2022-08-18 09:05:47')]
+    # queue = [('submit/ysyx_23050153', '2022-08-18 09:05:40'),
+    #          ('submit/ysyx_23050340', '2022-08-18 09:00:38'),
+    #          ('submit/ysyx_23050171', '2022-08-18 09:05:47')]
     queue.sort(key=lambda v: v[1])
 
     with open(cicd_config.QUEUE_LIST_PATH, 'r+', encoding='utf-8') as fp:
