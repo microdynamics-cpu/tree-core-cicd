@@ -30,7 +30,7 @@ class CoreQueue(object):
     # return: (state: Bool, submod_name: str, std_date: str)
     # state: if submod repo has new commit
     def check_remote_update(self, submod_name: str) -> (Tuple[bool, str, str]):
-        os.chdir(cicd_config.SUBMIT_DIR + submod_name)
+        os.chdir(cicd_config.SUB_DIR + submod_name)
         cmd = 'git rev-parse HEAD'
         local_rev = cicd_config.exec_cmd(cmd)
 
@@ -65,7 +65,7 @@ class CoreQueue(object):
             return (True, submod_name, std_date)
 
     def pull_sub(self, submod_name: str):
-        os.chdir(cicd_config.SUBMIT_DIR + submod_name)
+        os.chdir(cicd_config.SUB_DIR + submod_name)
         self.sw_branch(cicd_config.BRANCH_NAME_DEV)
 
         cmd = 'git pull --progress -v --no-rebase "origin" '
@@ -75,34 +75,36 @@ class CoreQueue(object):
         os.chdir(cicd_config.HOME_DIR)
 
     def check_repo(self, core_id: str):
-        submod_name = 'submit/' + core_id
-        ret = self.check_remote_update(submod_name)
+        ret = self.check_remote_update(core_id)
         # restart is also right
         if core_id not in self.id_list:
-            print(">>> remote repo: " + submod_name +
+            print(">>> remote repo: " + core_id +
                   " first build! start pull...")
             self.id_list.append(core_id)
-            self.pull_sub(submod_name)
+            self.pull_sub(core_id)
             self.val_list.append(ret[1:])
         elif ret[0] is True:
-            print(">>> remote repo: " + submod_name +
-                  " changed! start pull...")
-            self.pull_sub(submod_name)
+            print(">>> remote repo: " + core_id + " changed! start pull...")
+            self.pull_sub(core_id)
             self.val_list.append(ret[1:])
         else:
-            print(">>> remote repo: " + submod_name + " not changed")
+            print(">>> remote repo: " + core_id + " not changed")
         return ret
 
     def add_id(self):
-        os.chdir(cicd_config.HOME_DIR)
+        # os.chdir(cicd_config.HOME_DIR)
         # check if cores have been added to the cicd database
         with open(cicd_config.ID_LIST_PATH, 'r+', encoding='utf-8') as fp:
             for v in fp:
                 self.id_list.append(v.rstrip('\n'))
+            self.id_list.sort()
+            # print(self.id_list)
 
     def check_id(self):
         core_id = os.listdir(cicd_config.SUB_DIR)
         core_id.sort()
+        print(core_id)
+        return
         for v in core_id:
             self.check_repo(v)
 
@@ -114,9 +116,9 @@ class CoreQueue(object):
 
     def update_queue(self):
         # cicd_config.git_commit(cicd_config.SUB_DIR, '[bot] update repo')
-        # self.val_list = [('submit/ysyx_23050153', '2022-08-18 09:05:40'),
-        #          ('submit/ysyx_23050340', '2022-08-18 09:00:38'),
-        #          ('submit/ysyx_23050171', '2022-08-18 09:05:47')]
+        # self.val_list = [('ysyx_23050153', '2022-08-18 09:05:40'),
+        #          ('ysyx_23050340', '2022-08-18 09:00:38'),
+        #          ('ysyx_23050171', '2022-08-18 09:05:47')]
         self.val_list.sort(key=lambda v: v[1])
         with open(cicd_config.QUEUE_LIST_PATH, 'r+', encoding='utf-8') as fp:
             fp_cores = fp.readlines()
@@ -151,8 +153,8 @@ def main():
     core_queue.clear()
     core_queue.add_id()
     core_queue.check_id()
-    core_queue.update_id()
-    core_queue.update_queue()
+    # core_queue.update_id()
+    # core_queue.update_queue()
 
 
 if __name__ == '__main__':
