@@ -2,12 +2,16 @@
 [meta]
 version = "1.0"
 
-# [iv_config]
-# trigger = "iverilog"
-# [ver_config]
-# trigger = "verilator"
+# iverilog
+[iv_config]
+commit_info = "iv"
 
+# verilator
+[ver_config]
+commit_info = "ver"
+
+# vcs+dc
 [soc_config]
-trigger = "cicd"
-type = "vcs & dc" # [vcs, dc, vcs & dc, wave]
-freq = 100 # [100, 800]
+commit_info = "soc"
+type = "vcs+dc" # [vcs, dc, vcs+dc, wave]
+freq = 100 # [100, 800, step: 50]
