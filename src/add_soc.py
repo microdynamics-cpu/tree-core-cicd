@@ -48,7 +48,12 @@ class Cores(object):
         print('git checkout ' + cicd_config.CUR_BRAN)
         with open(cicd_config.ID_LIST_PATH, 'r+', encoding='utf-8') as fp:
             for v in fp:
-                self.id_list.append(v.rstrip('\n'))
+                val = v.rstrip('\n')
+                # print('id: ' + val)
+                # filter err and spaces
+                if self.check_valid(val) != '':
+                    self.id_list.append(v.rstrip('\n'))
+                # print('id: ' + v.rstrip('\n'))
 
         self.id_list.sort()
         self.cores.sort(key=lambda v: v.sid)
@@ -83,6 +88,7 @@ def main():
     cores.clear()
     cores.add()
     cores.update()
+
 
 if __name__ == '__main__':
     main()
