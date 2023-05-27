@@ -1,0 +1,8 @@
+# lint
+pylint
+yapf
+mypy
+
+# test
+pytest
+pytest-cov
