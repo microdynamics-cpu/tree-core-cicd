@@ -9,8 +9,8 @@ STD_FOMRAT = '%Y-%m-%d %H:%M:%S'
 CUR_BRAN = '202302'
 HOME_DIR = os.getcwd() + '/'
 DATA_DIR = HOME_DIR + '../data/' + CUR_BRAN
-SOC_LIST_PATH = DATA_DIR + '/soc_list'
-ID_LIST_PATH = DATA_DIR + '/id_list'
+SUBMIT_LIST_PATH = DATA_DIR + '/submit_list'
+CORE_LIST_PATH = DATA_DIR + '/core_list'
 QUEUE_LIST_PATH = DATA_DIR + '/queue_list'
 
 DC_HOME_DIR = HOME_DIR + '../lib/dc/bes_data/syn/scr'
