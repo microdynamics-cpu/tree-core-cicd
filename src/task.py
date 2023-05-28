@@ -2,7 +2,7 @@
 
 import time
 import schedule
-# import add_soc
+import add_soc
 import repo_update
 # import soc_test
 
@@ -16,7 +16,7 @@ import repo_update
 
 
 def main_task():
-    # add_soc.main()
+    add_soc.main()
     repo_update.main()
     # soc_test.main()
 

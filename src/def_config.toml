@@ -14,4 +14,5 @@ commit_info = "ver"
 [soc_config]
 commit_info = "soc"
 type = "vcs+dc" # [vcs, dc, vcs+dc, wave]
+prog = 'all' # format: [prog]-[type] prog: [hello, memtest, rtthread] type: [flash, mem, sdram]
 freq = 100 # [100, 800, step: 50]
