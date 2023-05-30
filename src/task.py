@@ -4,6 +4,7 @@ import time
 import schedule
 import add_soc
 import repo_update
+import test_dispatch
 # import soc_test
 
 # func:
@@ -13,12 +14,10 @@ import repo_update
 # 4. vcs test
 # struct:
 # toml, database
-
-
 def main_task():
     add_soc.main()
     repo_update.main()
-    # soc_test.main()
+    test_dispatch.main()
 
 
 schedule.every(1).seconds.do(main_task)
