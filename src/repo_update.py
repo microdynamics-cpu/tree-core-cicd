@@ -58,10 +58,7 @@ class CoreQueue(object):
         print(submod_name + " git info is: " + title_rev + '\n')
         print(submod_name + " commit time is: " + std_date + '\n')
 
-        if local_rev == remote_rev or title_rev != 'soc':
-            return (False, std_date)
-        else:
-            return (True, std_date)
+        return (local_rev != remote_rev, std_date)
 
     def pull_repo(self, submod_name: str):
         os.chdir(cicd_config.SUB_DIR + submod_name)
