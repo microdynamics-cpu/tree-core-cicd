@@ -4,8 +4,10 @@ import time
 import schedule
 import add_soc
 import repo_update
-import test_dispatch
+import dispatch
+
 # import soc_test
+
 
 # func:
 # 1. check code similarity, record commit info(freq, time) -> web
@@ -17,7 +19,7 @@ import test_dispatch
 def main_task():
     add_soc.main()
     repo_update.main()
-    test_dispatch.main()
+    dispatch.main()
 
 
 schedule.every(1).seconds.do(main_task)

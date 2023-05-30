@@ -72,7 +72,7 @@ class CoreQueue(object):
 
     def check_repo(self, core_info: CoreInfo):
         # ret = self.check_remote_update(core_info.sid)
-        ret = (True, '2023-5-23')
+        ret = (True, '2022-08-18 09:05:40')
         # restart is also right
         if core_info.flag == 'F':
             print('[' + core_info.sid + '] first! start pull...')
