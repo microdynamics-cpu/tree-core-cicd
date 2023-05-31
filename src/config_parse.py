@@ -13,6 +13,9 @@ class Config(object):
         self.vcs = VcsConfig(False, 'all', 100)
         self.dc = DcConfig(100)
 
+    def clear(self):
+        pass
+
     def check_config(self, sid) -> bool:
         repo_path = cicd_config.SUB_DIR + '/' + sid
         # tmp = repo_path + '/def_config.toml'
@@ -78,7 +81,6 @@ def main(sid: str):
         pass
     else:
         print('def_config.toml or commit info is not found!')
-
 
 
 if __name__ == '__main__':

@@ -6,8 +6,6 @@ import add_soc
 import repo_update
 import dispatch
 
-# import soc_test
-
 
 # func:
 # 1. check code similarity, record commit info(freq, time) -> web
