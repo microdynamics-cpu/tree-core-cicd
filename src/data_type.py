@@ -12,3 +12,29 @@ class QueueInfo(object):
     def __init__(self, sid: str, date: str):
         self.sid = sid
         self.date = date
+
+
+class IvConfig(object):
+    def __init__(self):
+        pass
+
+
+class VerConfig(object):
+    def __init__(self):
+        pass
+
+
+class VcsConfig(object):
+    def __init__(self, wave: bool, prog: str, freq: int):
+        self.wave = wave
+        self.prog = prog
+        self.freq = freq
+
+    def __str__(self) -> str:
+        return 'wave: ' + str(
+            self.wave) + ' prog: ' + self.prog + ' freq: ' + str(self.freq)
+
+
+class DcConfig(object):
+    def __init__(self, freq: int):
+        self.freq = freq
