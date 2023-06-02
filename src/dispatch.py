@@ -5,7 +5,7 @@ import config_parse
 import iv_test
 import ver_test
 import vcs_test
-import dc_test
+# import dc_test
 
 
 def main():
@@ -15,16 +15,16 @@ def main():
         if cores != []:
             tmp = cores[0].split()
             # print(tmp)
-            config_parse.main(tmp[0])
-            res = 'vcs'
-            if res == 'iv':
+            res = config_parse.main(tmp[0])
+            if res[1] == 'iv':
                 iv_test.main()
-            elif res == 'ver':
+            elif res[1] == 'ver':
                 ver_test.main()
-            elif res == 'vcs':
+            elif res[1] == 'vcs':
                 vcs_test.main()
-            elif res == 'dc':
-                dc_test.main()
+            elif res[1] == 'dc':
+                # dc_test.main()
+                pass
         else:
             print('this is not core in queue')
 

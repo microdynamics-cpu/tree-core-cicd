@@ -1,5 +1,5 @@
 import os
-from typing import Any, Dict
+from typing import Any, Dict, Tuple
 import tomli
 import cicd_config
 from data_type import IvConfig, VerConfig, VcsConfig, DcConfig
@@ -16,7 +16,7 @@ class Config(object):
     def clear(self):
         pass
 
-    def check_config(self, sid) -> bool:
+    def check_config(self, sid) -> Tuple[bool, str]:
         repo_path = cicd_config.SUB_DIR + '/' + sid
         # tmp = repo_path + '/def_config.toml'
         tmp = 'def_config.toml'
@@ -40,9 +40,9 @@ class Config(object):
                         print('[read ' + v + ']')
                         is_valid = True
                         self.config_parse(res[v])
-                return is_valid
+                return (is_valid, self.commit_info)
         else:
-            return False
+            return (False, '')
 
     def iv_config_parse(self, config: Dict[str, Any]):
         print(config)
@@ -75,13 +75,13 @@ class Config(object):
 def_config = Config()
 
 
-def main(sid: str):
+def main(sid: str) -> Tuple[bool, str]:
     res = def_config.check_config(sid)
-    if res:
-        pass
+    if res[0]:
+        print(res)
     else:
         print('def_config.toml or commit info is not found!')
-
+    return res
 
 if __name__ == '__main__':
     main('')
