@@ -16,6 +16,14 @@ class VcsTest(object):
     def create_dir(self):
         pass
 
+    def intg_soc(self):
+        pass
+
+    def comp(self):
+        pass
+
+    def run(self):
+        pass
 
 vcstest = VcsTest()
 
