@@ -67,10 +67,11 @@ class Cores(object):
                     break
 
             if is_find is False:
-                # os.system('git submodule add ' + va.url + ' submit/' + va.sid)
-                print('git submodule add ' + va.url + ' submit/' + va.sid)
+                os.system('git clone ' + va.url + ' submit/' + va.sid)
+                print('git clone ' + va.url + ' submit/' + va.sid)
                 new_id.append(CoreInfo('', va.sid, 'F'))
 
+        print('new core num: ' + str(len(new_id)))
         self.core_list += new_id
         self.core_list.sort(key=lambda v: v.sid)
         # print(self.core_list)
@@ -84,7 +85,6 @@ cores = Cores()
 
 def main():
     print('[add soc]')
-
     cores.clear()
     cores.add()
     cores.update()

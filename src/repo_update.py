@@ -29,7 +29,7 @@ class CoreQueue(object):
     # return: (state: Bool, submod_name: str, std_date: str)
     # state: if submod repo has new commit
     def check_remote_update(self, submod_name: str) -> (Tuple[bool, str]):
-        os.chdir(cicd_config.SUB_DIR + submod_name)
+        os.chdir(cicd_config.SUB_DIR + '/' + submod_name)
         cmd = 'git rev-parse HEAD'
         local_rev = cicd_config.exec_cmd(cmd)
 
@@ -47,21 +47,20 @@ class CoreQueue(object):
         cmd = 'git log origin/' + cicd_config.BRANCH_NAME_DEV
         cmd += ' --pretty=format:"%ad" -1'
         date_rev = cicd_config.exec_cmd(cmd)
-        print(date_rev)
+        # print(date_rev)
 
         std_date = datetime.strptime(
             date_rev, cicd_config.GMT_FORMAT).strftime(cicd_config.STD_FOMRAT)
 
         os.chdir(cicd_config.HOME_DIR)
-        print(submod_name + " local is: " + local_rev)
-        print(submod_name + " remote is: " + remote_rev)
-        print(submod_name + " git info is: " + title_rev + '\n')
-        print(submod_name + " commit time is: " + std_date + '\n')
-
+        print(submod_name + " local is: " + local_rev.rstrip('\n'))
+        print(submod_name + " remote is: " + remote_rev.rstrip('\n'))
+        print(submod_name + " git info is: " + title_rev.rstrip('\n'))
+        print(submod_name + " commit time is: " + std_date.rstrip('\n'))
         return (local_rev != remote_rev, std_date)
 
     def pull_repo(self, submod_name: str):
-        os.chdir(cicd_config.SUB_DIR + submod_name)
+        os.chdir(cicd_config.SUB_DIR + '/' + submod_name)
         self.sw_branch(cicd_config.BRANCH_NAME_DEV)
 
         cmd = 'git pull --progress -v --no-rebase "origin" '
@@ -71,8 +70,8 @@ class CoreQueue(object):
         os.chdir(cicd_config.HOME_DIR)
 
     def check_repo(self, core_info: CoreInfo):
-        # ret = self.check_remote_update(core_info.sid)
-        ret = (True, '2022-08-18 09:05:40')
+        ret = self.check_remote_update(core_info.sid)
+        # ret = (True, '2022-08-18 09:05:40')
         # restart is also right
         if core_info.flag == 'F':
             print('[' + core_info.sid + '] first! start pull...')
