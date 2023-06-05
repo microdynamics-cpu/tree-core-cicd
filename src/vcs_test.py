@@ -13,8 +13,8 @@ class VcsTest(object):
         cmd = 'find lib/vcs/cpu/* | grep -v ysyx_210000.v | xargs rm -rf'
         os.system(cmd)
 
-    def create_dir(self):
-        pass
+    # def create_dir(self):
+    #     pass
 
     def intg_soc(self):
         pass
@@ -22,9 +22,9 @@ class VcsTest(object):
     def comp(self):
         pass
 
-
     def run(self):
         pass
+
 
 vcstest = VcsTest()
 

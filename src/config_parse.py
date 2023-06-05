@@ -17,20 +17,22 @@ class Config(object):
         pass
 
     def check_config(self, sid) -> Tuple[bool, str]:
-        repo_path = cicd_config.SUB_DIR + '/' + sid
-        # tmp = repo_path + '/def_config.toml'
-        tmp = 'def_config.toml'
-        if os.path.isfile(tmp):
-            with open(tmp, 'rb') as fp:
+        core_dir = cicd_config.SUB_DIR + '/' + sid
+        core_config_file = core_dir + '/def_config.toml'
+        # core_config_file = 'def_config.toml'
+        if os.path.isfile(core_config_file):
+            with open(core_config_file, 'rb') as fp:
                 res = tomli.load(fp)
                 print(res)
 
                 cmd = 'git log origin/' + cicd_config.BRANCH_NAME_DEV
-                cmd += ' ' + repo_path
                 cmd += ' --pretty=format:"%s" -1'
-                print(cmd)
-                # commit_info = cicd_config.exec_cmd(cmd)
-                self.commit_info = 'vcs'
+                # print(cmd)
+                os.chdir(core_dir)
+                self.commit_info = cicd_config.exec_cmd(cmd)
+                print(self.commit_info)
+                os.chdir(cicd_config.HOME_DIR)
+                # self.commit_info = 'vcs'
                 # print(res.keys())
                 std_config_keys = ['iv_config', 'ver_config', 'vcs_config']
                 is_valid = False
@@ -80,8 +82,9 @@ def main(sid: str) -> Tuple[bool, str]:
     if res[0]:
         print(res)
     else:
-        print('def_config.toml or commit info is not found!')
+        print('def_config.toml is not found or commit info is err!')
     return res
+
 
 if __name__ == '__main__':
     main('')

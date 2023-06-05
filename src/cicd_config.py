@@ -7,7 +7,7 @@ GMT_FORMAT = '%a %b %d %H:%M:%S %Y %z'
 STD_FOMRAT = '%Y-%m-%d %H:%M:%S'
 
 # CUR_BRAN = '202302'
-CUR_BRAN = 'main' # NOTE: just for test
+CUR_BRAN = 'main'  # NOTE: just for test
 HOME_DIR = os.getcwd() + '/'
 DATA_DIR = HOME_DIR + '../data/' + CUR_BRAN
 SUBMIT_LIST_PATH = DATA_DIR + '/submit_list'

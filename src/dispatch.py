@@ -1,11 +1,18 @@
 #!/bin/python
 
+import os
 import cicd_config
 import config_parse
 import iv_test
 import ver_test
 import vcs_test
 # import dc_test
+
+
+def create_dir(sid: str):
+    core_rpt_dir = cicd_config.RPT_DIR + '/' + sid
+    os.system('mkdir -p ' + core_rpt_dir)
+    os.system('echo state: under test > ' + core_rpt_dir + '/state')
 
 
 def main():
@@ -15,6 +22,7 @@ def main():
         if cores != []:
             tmp = cores[0].split()
             # print(tmp)
+            create_dir(tmp[0])
             res = config_parse.main(tmp[0])
             if res[1] == 'iv':
                 iv_test.main()

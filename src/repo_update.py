@@ -43,6 +43,7 @@ class CoreQueue(object):
         cmd = 'git log origin/' + cicd_config.BRANCH_NAME_DEV
         cmd += ' --pretty=format:"%s" -1'
         title_rev = cicd_config.exec_cmd(cmd)
+        print(cmd)
 
         cmd = 'git log origin/' + cicd_config.BRANCH_NAME_DEV
         cmd += ' --pretty=format:"%ad" -1'
@@ -53,10 +54,11 @@ class CoreQueue(object):
             date_rev, cicd_config.GMT_FORMAT).strftime(cicd_config.STD_FOMRAT)
 
         os.chdir(cicd_config.HOME_DIR)
-        print(submod_name + " local is: " + local_rev.rstrip('\n'))
-        print(submod_name + " remote is: " + remote_rev.rstrip('\n'))
-        print(submod_name + " git info is: " + title_rev.rstrip('\n'))
-        print(submod_name + " commit time is: " + std_date.rstrip('\n'))
+        print(submod_name + ':')
+        print('local is: ' + local_rev.rstrip('\n'))
+        print('remote is: ' + remote_rev.rstrip('\n'))
+        print('git info is: ' + title_rev.rstrip('\n'))
+        print('commit time is: ' + std_date.rstrip('\n'))
         return (local_rev != remote_rev, std_date)
 
     def pull_repo(self, submod_name: str):
@@ -105,6 +107,7 @@ class CoreQueue(object):
             # check if new-submit cores are in self.val_list
             for i, va in enumerate(fp_cores):
                 for j, vb in enumerate(self.val_list):
+                    # print('va: ' + va.split()[0] + ' vb: ' + vb.sid)
                     if va.split()[0] == vb.sid:
                         fp_cores[i] = self.val_list[
                             j].sid + ' ' + self.val_list[j].date + '\n'
