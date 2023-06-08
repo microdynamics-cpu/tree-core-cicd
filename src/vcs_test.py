@@ -63,6 +63,11 @@ class VcsTest(object):
                     self.err.append(line)
 
     def run(self):
+        # err_cnt = 0
+        cmd = f'cd {0} && '.format(cicd_config.VCS_RUN_DIR)
+        cmd += 'make all_test'
+
+    def gen_rpt(self):
         pass
 
 
@@ -75,6 +80,7 @@ def main():
     vcstest.intg_soc()
     vcstest.comp()
     vcstest.run()
+    vcstest.gen_rpt()
 
 
 if __name__ == '__main__':
