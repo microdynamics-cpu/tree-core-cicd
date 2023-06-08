@@ -23,6 +23,10 @@ SUBMIT_DIR = HOME_DIR + '../tests/intg'
 SUB_DIR = SUBMIT_DIR + '/submit'
 RPT_DIR = SUBMIT_DIR + '/report'
 
+VCS_DIR = HOME_DIR + '../vcs'
+VCS_RUN_DIR = VCS_DIR + '/run'
+VCS_CPU_DIR = VCS_DIR + '/cpu'
+
 
 def exec_cmd(cmd: str) -> str:
     try:
