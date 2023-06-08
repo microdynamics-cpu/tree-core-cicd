@@ -24,11 +24,10 @@ class VcsTest(object):
         self.clear_dir()
 
     def clear_dir(self):
-        cmd = 'cd ' + cicd_config.VCS_RUN_DIR
-        cmd += ' && make clean'
+        cmd = f'cd {cicd_config.VCS_RUN_DIR}  && make clean'
         cmd += ' && rm temp.fp getReg* novas* verdi* -rf'
         os.system(cmd)
-        cmd = 'find ' + cicd_config.VCS_CPU_DIR + '/*'
+        cmd = f'find {cicd_config.VCS_CPU_DIR}/*'
         cmd += ' grep -v ysyx_210000.v | xargs rm -rf'
         os.system(cmd)
 
@@ -36,8 +35,7 @@ class VcsTest(object):
         pass
 
     def comp(self):
-        cmd = 'cd ' + cicd_config.VCS_RUN_DIR
-        cmd += ' && make comp'
+        cmd = f'cd {cicd_config.VCS_RUN_DIR} && make comp'
         os.system(cmd)
 
         log_state = [LogState.end, LogState.end, LogState.end]
@@ -64,7 +62,7 @@ class VcsTest(object):
 
     def run(self):
         # err_cnt = 0
-        cmd = f'cd {0} && '.format(cicd_config.VCS_RUN_DIR)
+        cmd = f'cd {cicd_config.VCS_RUN_DIR} && '
         cmd += 'make all_test'
 
     def gen_rpt(self):

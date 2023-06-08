@@ -29,7 +29,7 @@ class Cores(object):
 
     def handle_err(self, val: str):
         # NOTE: need to write to the submit info
-        print('ID: error format, the err val: ' + val)
+        print(f'ID: error format, the err val: {val}')
 
     def add(self):
         with open(cicd_config.SUBMIT_LIST_PATH, 'r+', encoding='utf-8') as fp:
@@ -45,7 +45,7 @@ class Cores(object):
     def update(self):
         os.chdir(cicd_config.SUBMIT_DIR)
         # os.system('git checkout ' + cicd_config.CUR_BRAN)
-        print('git checkout ' + cicd_config.CUR_BRAN)
+        print(f'git checkout {cicd_config.CUR_BRAN}')
         with open(cicd_config.CORE_LIST_PATH, 'r+', encoding='utf-8') as fp:
             for v in fp.readlines():
                 tmp = v.split()
@@ -67,11 +67,11 @@ class Cores(object):
                     break
 
             if is_find is False:
-                os.system('git clone ' + va.url + ' submit/' + va.sid)
-                print('git clone ' + va.url + ' submit/' + va.sid)
+                os.system(f'git clone {va.url} submit/{va.sid}')
+                print(f'git clone {va.url} submit/{va.sid}')
                 new_id.append(CoreInfo('', va.sid, 'F'))
 
-        print('new core num: ' + str(len(new_id)))
+        print(f'new core num: {len(new_id)}')
         self.core_list += new_id
         self.core_list.sort(key=lambda v: v.sid)
         # print(self.core_list)

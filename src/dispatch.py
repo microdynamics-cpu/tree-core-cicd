@@ -11,8 +11,8 @@ import vcs_test
 
 def create_dir(sid: str):
     core_rpt_dir = cicd_config.RPT_DIR + '/' + sid
-    os.system('mkdir -p ' + core_rpt_dir)
-    os.system('echo state: under test > ' + core_rpt_dir + '/state')
+    os.system(f'mkdir -p {core_rpt_dir}')
+    os.system(f'echo state: under test > {core_rpt_dir}/state')
 
 
 def main():

@@ -25,7 +25,7 @@ class Config(object):
                 res = tomli.load(fp)
                 print(res)
 
-                cmd = 'git log origin/' + cicd_config.BRANCH_NAME_DEV
+                cmd = f'git log origin/{cicd_config.BRANCH_NAME_DEV}'
                 cmd += ' --pretty=format:"%s" -1'
                 # print(cmd)
                 os.chdir(core_dir)
@@ -39,7 +39,7 @@ class Config(object):
                 for v in std_config_keys:
                     if v in res.keys(
                     ) and res[v]['commit_info'] == self.commit_info:
-                        print('[read ' + v + ']')
+                        print(f'[read {v}]')
                         is_valid = True
                         self.config_parse(res[v])
                 return (is_valid, self.commit_info)

@@ -17,12 +17,12 @@ class CoreQueue(object):
         cmd = 'git symbolic-ref --short HEAD'
         # check if already in this branch
         cur_bran = cicd_config.exec_cmd(cmd)
-        if cur_bran == (bran_name + "\n"):
+        if cur_bran == (bran_name + '\n'):
             return
         else:
             # switch to branch
-            print("switch to branch: " + bran_name)
-            cmd = 'git checkout ' + bran_name
+            print('switch to branch: ' + bran_name)
+            cmd = f'git checkout {bran_name}'
             ret = cicd_config.exec_cmd(cmd)
             print(ret)
 
@@ -40,25 +40,25 @@ class CoreQueue(object):
         cmd = 'git rev-parse origin/HEAD'
         remote_rev = cicd_config.exec_cmd(cmd)
 
-        cmd = 'git log origin/' + cicd_config.BRANCH_NAME_DEV
+        cmd = f'git log origin/{cicd_config.BRANCH_NAME_DEV}'
         cmd += ' --pretty=format:"%s" -1'
+        # print(cmd)
         title_rev = cicd_config.exec_cmd(cmd)
-        print(cmd)
 
-        cmd = 'git log origin/' + cicd_config.BRANCH_NAME_DEV
+        cmd = f'git log origin/{cicd_config.BRANCH_NAME_DEV}'
         cmd += ' --pretty=format:"%ad" -1'
-        date_rev = cicd_config.exec_cmd(cmd)
         # print(date_rev)
+        date_rev = cicd_config.exec_cmd(cmd)
 
         std_date = datetime.strptime(
             date_rev, cicd_config.GMT_FORMAT).strftime(cicd_config.STD_FOMRAT)
 
         os.chdir(cicd_config.HOME_DIR)
         print(submod_name + ':')
-        print('local is: ' + local_rev.rstrip('\n'))
-        print('remote is: ' + remote_rev.rstrip('\n'))
-        print('git info is: ' + title_rev.rstrip('\n'))
-        print('commit time is: ' + std_date.rstrip('\n'))
+        print(f'local is:       {local_rev}'.rstrip('\n'))
+        print(f'remote is:      {remote_rev}'.rstrip('\n'))
+        print(f'git info is:    {title_rev}')
+        print(f'commit time is: {std_date}')
         return (local_rev != remote_rev, std_date)
 
     def pull_repo(self, submod_name: str):
@@ -76,15 +76,15 @@ class CoreQueue(object):
         # ret = (True, '2022-08-18 09:05:40')
         # restart is also right
         if core_info.flag == 'F':
-            print('[' + core_info.sid + '] first! start pull...')
+            print(f'[{core_info.sid}] first! start pull...')
             self.pull_repo(core_info.sid)
             self.val_list.append(QueueInfo(core_info.sid, ret[1]))
         elif ret[0] is True:
-            print('[' + core_info.sid + '] changed! start pull...')
+            print(f'[{core_info.sid}] changed!! start pull...')
             # self.pull_repo(core_info.sid)
             self.val_list.append(QueueInfo(core_info.sid, ret[1]))
         else:
-            print('[' + core_info.sid + '] not changed')
+            print(f'[{core_info.sid}] not changed')
 
     # os.chdir(cicd_config.HOME_DIR)
     # check if cores have been added to the cicd database
@@ -129,7 +129,7 @@ core_queue = CoreQueue()
 
 
 def main():
-    os.system('mkdir -p ' + cicd_config.DATA_DIR)
+    os.system(f'mkdir -p {cicd_config.DATA_DIR}')
     print('[repo update]')
     core_queue.clear()
     core_queue.check_id()

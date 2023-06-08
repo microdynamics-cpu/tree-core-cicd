@@ -31,8 +31,7 @@ class VcsConfig(object):
         self.freq = freq
 
     def __str__(self) -> str:
-        return 'wave: ' + str(
-            self.wave) + ' prog: ' + self.prog + ' freq: ' + str(self.freq)
+        return f'wave: {self.wave} prog: {self.prog} freq: {self.freq}'
 
 
 class DcConfig(object):
