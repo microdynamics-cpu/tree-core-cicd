@@ -12,9 +12,9 @@ commit_info = "ver"
 
 [vcs_config]
 commit_info = "vcs"
-wave = "off" # [off, on]
 prog = 'all' # format: [prog]-[type] prog: [hello, memtest, rtthread] type: [flash, mem, sdram]
 freq = 100 # [100, 800, step: 50]
+debug = {wave = "off", prog = "hello-flash"}
 
 [dc_config]
 commit_info = "dc"
