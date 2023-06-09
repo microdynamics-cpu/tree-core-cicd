@@ -32,7 +32,19 @@ class VcsTest(object):
         os.system(cmd)
 
     def intg_soc(self):
-        pass
+        core_path = cicd_config.SUB_DIR + '/' + self.dut
+        sv_format = core_path + '.sv'
+        v_format = core_path + '.sv'
+        if os.path.isfile(sv_format):
+            os.system(f'cp {sv_format} {cicd_config.VCS_CPU_DIR}')
+        elif os.path.isfile(v_format):
+            os.system(f'cp {v_format} {cicd_config.VCS_CPU_DIR}')
+        else:
+            print('not found core!')
+
+        os.chdir(cicd_config.VCS_SCRIPT_DIR)
+        os.system('python autowire.py')
+        os.chdir(cicd_config.HOME_DIR)
 
     def comp(self):
         cmd = f'cd {cicd_config.VCS_RUN_DIR} && make comp'
