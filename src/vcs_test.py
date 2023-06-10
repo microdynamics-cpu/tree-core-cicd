@@ -12,12 +12,16 @@ class LogState(Enum):
 class VcsTest(object):
     def __init__(self):
         self.dut = ''
+        self.date = ''
+        self.time = ''
         self.lint = []
         self.warn = []
         self.err = []
 
     def clear(self):
         self.dut = ''
+        self.date = ''
+        self.time = ''
         self.lint = []
         self.warn = []
         self.err = []
@@ -76,9 +80,22 @@ class VcsTest(object):
         # err_cnt = 0
         cmd = f'cd {cicd_config.VCS_RUN_DIR} && '
         cmd += 'make all_test'
+        os.system(cmd)
 
     def gen_rpt(self):
-        pass
+        rpt_path = cicd_config.RPT_DIR + '/' + self.dut
+        rpt_path += f'/{self.date}-{self.time}'
+        os.system(f'mkdir -p {rpt_path}')
+        with open(rpt_path + '/vcs_report', 'a+', encoding='utf-8') as fp:
+            fp.writelines(f'\ncore: {self.dut}\n')
+            fp.writelines(
+                '\n####################\n#vcs compile log\n####################\n'
+            )
+            
+            if not self.err or not self.warn or not self.lint:
+                fp.writelines('all clear\n\n')
+            else:
+                fp.writelines(self.err + self.warn + self.lint)
 
 
 vcstest = VcsTest()
