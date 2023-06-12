@@ -89,9 +89,9 @@ class VcsTest(object):
         with open(rpt_path + '/vcs_report', 'a+', encoding='utf-8') as fp:
             fp.writelines(f'\ncore: {self.dut}\n')
             fp.writelines(
-                '\n####################\n#vcs compile log\n####################\n'
+                '\n################\n#vcs compile log\n################\n'
             )
-            
+
             if not self.err or not self.warn or not self.lint:
                 fp.writelines('all clear\n\n')
             else:
